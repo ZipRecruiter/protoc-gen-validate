@@ -13,6 +13,10 @@ GO_IMPORT_SPACES := ${VALIDATE_IMPORT},\
 	Mgoogle/protobuf/descriptor.proto=github.com/golang/protobuf/protoc-gen-go/descriptor,\
 GO_IMPORT:=$(subst $(space),,$(GO_IMPORT_SPACES))
 
+.PHONY: proto-validate
+proto-validate: validate/validate.proto
+	protoc --go_out=../../../ -I. validate/*.proto
+
 .PHONY: build
 build: validate/validate.pb.go
 	# generates the PGV binary and installs it into $$GOPATH/bin

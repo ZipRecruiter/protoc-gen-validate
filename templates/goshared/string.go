@@ -68,6 +68,13 @@ const strTpl = `
 		}
 	{{ end }}
 
+	{{ if $r.DisallowEmpty }}
+		if {{ accessor . }} == "" {
+			return {{ err . "value cannot be empty " }}
+		}
+	{{ end }}
+
+
 	{{ if $r.Contains }}
 		if !strings.Contains({{ accessor . }}, {{ lit $r.GetContains }}) {
 			return {{ err . "value does not contain substring " (lit $r.GetContains) }}
