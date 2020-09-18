@@ -68,12 +68,17 @@ const strTpl = `
 		}
 	{{ end }}
 
-	{{ if $r.DisallowEmpty }}
-		if {{ accessor . }} == "" {
-			return {{ err . "value cannot be empty " }}
+	{{ if $r.Equals }}
+		if {{ accessor . }} == {{ lit $r.GetEquals }} {
+			return {{ err . "value must not equal " (lit $r.GetEquals) }}
 		}
 	{{ end }}
 
+	{{ if $r.NotEquals }}
+		if {{ accessor . }} != {{ lit $r.GetNotEquals }} {
+			return {{ err . "value must equal " (lit $r.GetNotEquals) }}
+		}
+	{{ end }}
 
 	{{ if $r.Contains }}
 		if !strings.Contains({{ accessor . }}, {{ lit $r.GetContains }}) {

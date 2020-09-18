@@ -565,7 +565,9 @@ message StringRules {
   // \r\n\0 characters, which can be used to bypass header matching rules.
   optional bool strict = 25 [default = true];
 
-  optional bool disallow_empty = 26;
+  optional string not_equals = 26;
+
+  optional string equals = 27;
 
 }
 
